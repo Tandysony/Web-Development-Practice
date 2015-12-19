@@ -7,6 +7,9 @@
     background-image: url(../img/Relay.jpg);
 }
 
+
+/*picuture injection in CSS for hovers.html*/
+#picture-css{
 #hovers{
     width: 200px;
     height: 600px;
@@ -22,7 +25,7 @@
 }
 
 #hovers:hover{
-    /*background-color: #000;*/
+    background-color: #000000;
     border: 1px solid red;
     color: white;
     opacity: 1;
