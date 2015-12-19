@@ -1,7 +1,29 @@
 
+
+/*picuture injection in CSS for picture_practice.html*/
 #picture-css{
     width: 355px;
     height: 355px;
     background-image: url(../img/Relay.jpg);
-    color: #333;
+}
+
+#hovers{
+    width: 200px;
+    height: 600px;
+    border: 1px solid black;
+    background-image: url(../img/Relay.jpg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    opacity: 0.5;
+}
+
+#hovers h2{
+    text-align: center;
+}
+
+#hovers:hover{
+    /*background-color: #000;*/
+    border: 1px solid red;
+    color: white;
+    opacity: 1;
 }
