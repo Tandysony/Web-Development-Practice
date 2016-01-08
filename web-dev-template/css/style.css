@@ -1,15 +1,36 @@
+body{
+    font-family: "Trebuchet MS", sans-serif;
+}
 
+.buttonholder{
+    align-content: center;
+    display: block;
+}
+
+.button{
+    background: rgb(85, 188, 142);
+    padding: 8px 12px;
+    text-decoration: none;
+    border-bottom: 3px solid rgb(76, 168, 127);
+    color: #fff;
+    display: inline-block;
+    -webkit-text-shadow: 0 1px 2px rgba(0, 0, 0, .2); /* Chrome or Safari */
+    -ms-text-shadow: 0; /* MS IE */
+    -moz-text-shadow: 0; /* Firefox */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .2); /* default */
+    border-radius: 3px;
+}
 
 /*picuture injection in CSS for picture_practice.html*/
-#picture-css{
+/*#picture-css{
     width: 355px;
     height: 355px;
     background-image: url(../img/Relay.jpg);
-}
+}*/
 
 
 /*picuture injection in CSS for hovers.html*/
-#picture-css{
+/*#picture-css{
 #hovers{
     width: 200px;
     height: 600px;
@@ -18,9 +39,9 @@
     background-size: 100%;
     background-repeat: no-repeat;
     opacity: 0.5;
-}
+}*/
 
-#hovers h2{
+/*#hovers h2{
     text-align: center;
 }
 
@@ -29,4 +50,4 @@
     border: 1px solid red;
     color: white;
     opacity: 1;
-}
+}*/

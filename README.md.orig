@@ -6,11 +6,11 @@
 * Last update: Dec 18, 2015
 
 ---
-<<<<<<< .merge_file_Acplnp
+<<<<<<< HEAD
 # The Roles of Web Technologies
 =======
 # 1. The roles of web technologies
->>>>>>> .merge_file_JLg76y
+>>>>>>> 1e8599feb96bbd37bc5bea5f43358312a4c6de34
 The most widely used web technologies/languages are HTML, CSS, JavaScript, PHP, MySQL, ASP.NET, MS SQL Server. Others like JAVA, Ruby, Python, MangoDB, etc. are also available to choose from. The following table presents the roles of several technologies/languages, taking HTML, CSS, JavaScript, PHP, MySQL as examples.
 
 | Technologies/Languages  | Roles     | Where it runs   |
