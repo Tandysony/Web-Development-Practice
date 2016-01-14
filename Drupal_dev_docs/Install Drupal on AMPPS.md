@@ -12,6 +12,9 @@
 3. Window 7/8/10 or Mac OS X or Linux
 
 #### 1. Download and install AMPPS
+
+AMPPS is a solution stack of Apache, MySQL, MongoDB, PHP, Perl & Python for Windows, Linux and Mac. It enables you to provide local host for local web development. You might have experienced MAMP on Mac OS, WAMP on Windows, or LAMP for Linux. However, it is more likely to pop up errors when sync website/database between machines. With AMPPS across all platforms, it ensures that database version and structure (i.e., table prefix) are exactly the same regardless of the OS.
+
  * Download [AMPPS](http://www.ampps.com/)
  * Install it on your PC or Mac
 
