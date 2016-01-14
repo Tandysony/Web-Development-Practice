@@ -50,7 +50,7 @@ The most widely used web technologies/languages are HTML, CSS, JavaScript, PHP, 
 
 The acronym `MEAN` stands for `MongoDB Express.js AngularJS Node.js` and represents a group of technologies which are known to synergize well together. The major benefit of the `MEAN` stack is that it's extremely quick to prototype with. `Node.js` allows you to use Javascript on the backend as well as the front-end which can save you from having to learn a separate language. In addition, the `NoSQL` nature of MongoDB allows you to quickly change and alter the data layer without having to worry about migrations, which is a very valuable attribute when you're trying to build a product without clear specifications. Finally, these technologies have a lot of community support behind them so finding answers to questions or hiring help is going to be much easier using these technologies.
 
-## Q&A
+## FAQ
 **Q1:** How to add `/usr/local/git/bin` to `$PATH` in Mac OS X?  
 ![PATH](PATH_problem.png)
 
