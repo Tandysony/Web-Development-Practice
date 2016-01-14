@@ -75,7 +75,7 @@ In this demo, website folder is named `loc.jidps.com`.
 
 #### 3. Sync a localhost website to multiple machines?
 
-> **Do NOT fully rely on the `Backup and Migrate` module to sync your entire website among multiple machines. Too shame that Drupal released the Backup and Migrate module (7.x-3.1) that is not functional well at the time of writing (Jan. 12, 2016), even with patches applied. It raised all kinds of issues all over the Internet, even the patches installed. Here I provide a way to baypass the restore function working like a charm.**
+> **Do NOT fully rely on the `Backup and Migrate` module to sync your entire website among multiple machines. Too shame that Drupal released the `Backup and Migrate module (7.x-3.1)` that is not functional well at the time of writing (Jan. 12, 2016), even with patches applied. It raised all kinds of issues all over the Internet. Hereby, I provide a way to baypass the restore function. I have tested this on two PCs running Windows 7 64-bit and one Macbook Pro running OS X El Capitan. It works like a charm.**
 
  > **Please also be noted that the sync process is based on the `AMPPS` software, to ensure that database version and structure (i.e., table prefix) are exactly the same across all computers, no matter running MAC OS, Windows or Linux.**
 
