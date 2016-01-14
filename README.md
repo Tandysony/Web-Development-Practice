@@ -42,8 +42,8 @@ The most widely used web technologies/languages are HTML, CSS, JavaScript, PHP, 
 
 # 3. Web development with Drupal (or WordPress)
 
-* [Install Drupal on a AMPPS](xxx)
-* [Web Development with Drupal 7](xxx)
+* [Install Drupal on a AMPPS](https://github.com/Tandysony/Web-Development-Practice/blob/master/Drupal_dev_docs/Install%20Drupal%20on%20AMPPS.md)
+* [Web Development with Drupal 7](https://github.com/Tandysony/Web-Development-Practice/blob/master/Drupal_dev_docs/Web%20Development%20with%20Drupal%207.md)
 
 
 # 4. MEAN stack
