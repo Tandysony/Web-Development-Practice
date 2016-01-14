@@ -65,7 +65,7 @@ In this demo, website folder is named `loc.jidps.com`.
 #### 1. Having `?q=` in URLs even with `Pathauto` module enabled?
  * You need to make sure `LoadModule rewrite_module modules/mod_rewrite.so` in the `httpd.conf` file is uncomment out, no leading `#`.
 
-    ![enable rewrite module](img/Apache_modules.png)
+    ![enable rewrite module](img/Apache_modules.PNG)
 
 * Go to `http://localhost/loc.jidps.com/?q=admin/config/search/clean-urls` and check `Enable clean URLs`
 
