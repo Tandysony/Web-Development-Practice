@@ -18,25 +18,68 @@
 		<form id="msform">
 			<!-- progressbar -->
 			<ul id="progressbar">
-				<li class="active">Account Setup</li>
-				<li>Social Profiles</li>
-				<li>Personal Details</li>
+				<li class="active">Paper Information</li>
+				<li>Author Information</li>
+				<li>Upload Files</li>
+				<li>Final Check and Submit</li>
 			</ul>
 			<!-- fieldsets -->
 			<fieldset>
-				<h2 class="fs-title">Create your account</h2>
+				<h2 class="fs-title">Paper Information</h2>
 				<h3 class="fs-subtitle">This is step 1</h3>
-				<input type="text" name="email" placeholder="Email" />
-				<input type="password" name="pass" placeholder="Password" />
-				<input type="password" name="cpass" placeholder="Confirm Password" />
+				<input type="text" name="ptitle" placeholder="Paper Title" />
+				<input type="text" name="ptype" placeholder="Paper Type" />
+				<input type="text" name="speissue" placeholder="Special Issue" />
+				<input type="text" name="abstract" placeholder="Abstract" />
+				<input type="text" name="keywords" placeholder="Keywords" />
 				<input type="button" name="next" class="next action-button" value="Next" />
 			</fieldset>
 			<fieldset>
-				<h2 class="fs-title">Social Profiles</h2>
-				<h3 class="fs-subtitle">Your presence on the social network</h3>
-				<input type="text" name="twitter" placeholder="Twitter" />
-				<input type="text" name="facebook" placeholder="Facebook" />
-				<input type="text" name="gplus" placeholder="Google Plus" />
+				<section class="author-containner">
+					<div class="author-info">
+						<h2 class="fs-title">Author Information</h2>
+						<h3 class="fs-subtitle">Author(s) Information to the paper</h3>
+						<input type="text" name="firsname" placeholder="First Name" />
+						<input type="text" name="middlename" placeholder="Middle Name" />
+						<input type="text" name="lastname" placeholder="Last Name" />
+						<input type="text" name="degree" placeholder="Degree" />
+						<input type="text" name="affilation" placeholder="Affiliation" />
+						<input type="email" name="email" placeholder="Email" />
+						<input type="button" name="add" class="add action-button" value="Add" />
+						<input type="button" name="reset" class="reset action-button" value="Reset" />
+					</div>
+					<div class="author-table">
+						<table border="1" style="width:100%">
+						  <tr>
+							<th>#</th>
+						    <th>Fist Name</th>
+						    <th>Middle Name</th>
+						    <th>Last Name</th>
+							<th>Degree</th>
+							<th>Affiliation</th>
+							<th>Email</th>
+						  </tr>
+						  <tr>
+							<td>1</td>
+						    <td>Yong</td>
+						    <td></td>
+						    <td>Zeng</td>
+							<td>Ph.D.</td>
+						    <td>Concordia University</td>
+						    <td>zeng@concorida.ca</td>
+						  </tr><tr>
+							<td>2</td>
+						    <td>Suo</td>
+						    <td></td>
+						    <td>Tan</td>
+							<td>Ph.D.</td>
+						    <td>Concordia University</td>
+						    <td>suo@concorida.ca</td>
+						  </tr>
+						</table>
+					</div>
+				</section>
+
 				<input type="button" name="previous" class="previous action-button" value="Previous" />
 				<input type="button" name="next" class="next action-button" value="Next" />
 			</fieldset>
@@ -48,6 +91,16 @@
 				<input type="text" name="phone" placeholder="Phone" />
 				<textarea name="address" placeholder="Address"></textarea>
 				<input type="button" name="previous" class="previous action-button" value="Previous" />
+				<input type="button" name="next" class="next action-button" value="Next" />
+			</fieldset>
+			<fieldset>
+				<h2 class="fs-title">Final Check and Submit</h2>
+				<h3 class="fs-subtitle">Preview your submission before submitting</h3>
+				<input type="text" name="fname" placeholder="First Name" />
+				<input type="text" name="lname" placeholder="Last Name" />
+				<input type="text" name="phone" placeholder="Phone" />
+				<textarea name="address" placeholder="Address"></textarea>
+				<input type="save" name="save" class="save action-button" value="Save" />
 				<input type="submit" name="submit" class="submit action-button" value="Submit" />
 			</fieldset>
 		</form>
