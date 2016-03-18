@@ -2,13 +2,16 @@
 
 * Author: Suo Tan (tandysony AT gmail DOT com)
 * Created: Dec. 3, 2015
-* Last updated: Jan. 13, 2015
+* Last updated: March. 18, 2016
 
 ---
 
 ## Prerequisite
 1. AMPPS installed
 2. Drupal 7 installed
+3. Courage and persistence (learning Drupal can be very painful)
+
+ ![learning-curve-of-popular-cms](img/learning-curve-of-popular-cms.png)
 
 ## Website Development with Drupal
 In this demo, website folder is named `loc.jidps.com`.
@@ -44,6 +47,56 @@ In this demo, website folder is named `loc.jidps.com`.
 ### 5. Taxonomy
  * xxx
  * To configure multi-layer taxonomy pattern, go to `Configuration` --> `Search and metadata` --> `URL aliases` --> `TAXONOMY TERM PATHS`: under `Default path pattern`, fill in `[term:vocabulary]/[term:parents:join-path]/[term:name]`
+
+### 6. [Drupal's database system]()
+
+##### 6.1. General database terms
+ * There are three big pieces that need to exist before we have a useful database abstraction layer.
+     * **The connection**. How is a connection established, maintained, and closed?
+     * **The query**. How is a query built and sent to the database?
+     * **The result**. How are query results returned in a format which we can use?
+
+Thankfully, [PDO](http://php.net/manual/en/intro.pdo.php) ("PHP Data Objects") exists for `PHP`, which has stock solutions for each of those three. There are two classes here that we need to be aware of.
+
+* **The `PDO` class** handles creating, maintaining, and closing the **connection** between PHP and whatever database you're using.
+* **The `PDOStatement` class** handles **querying the database** (using "prepared statements" which is where the name comes from) as well as **returning results**.
+
+That's it. Those are the two major pieces of `PDO`, and you can see that each of our three major pieces in the list above above are addressed in one of those two classes.
+
+*Note: there are more `PDO` classes than just those two. There is also a `PDOException` class and some driver classes for different databases, for example, but those aren't important for the purposes of our understanding right now.
+
+Congratulations, you know enough about `PDO` to understand how Drupal is using it! In fact, a lot of `PDO` will look familiar to you if you've done some querying with Drupal. For example, `fetchAll()` and `rowCount()` are core functions of the `PDOStatement` class.*
+
+##### 6.2. What Drupal's doing
+Here are the big three DB-related classes in Drupal, all of which live along with a few others in `includes/database/database.inc`:
+* **[DatabaseConnection](https://api.drupal.org/api/drupal/includes%21database%21database.inc/class/DatabaseConnection/7)** - extends the `PDO` class to manage the connection
+* **[DatabaseStatementBase](https://api.drupal.org/api/drupal/includes%21database%21database.inc/class/DatabaseStatementBase/7)** - extends the `PDOStatement` class to send queries and fetch results
+* **[Database](https://api.drupal.org/api/drupal/includes%21database%21database.inc/class/Database/7)** - a standalone class that isn't meant to be instantiated or extended, which contains some functions used to manage the connection with `DatabaseConnection` without having to resort to global variables (this will make more sense later).
+
+And then we have the classes for specific query types, which live in `includes/database/query.inc`:
+* **[Query](https://api.drupal.org/api/drupal/includes%21database%21query.inc/class/Query/7)** - base class that doesn't do much on its own
+* **[InsertQuery](https://api.drupal.org/api/drupal/includes%21database%21query.inc/class/InsertQuery/7)** - extends the `Query` class for `INSERT` queries
+* **[UpdateQuery](https://api.drupal.org/api/drupal/includes%21database%21query.inc/class/UpdateQuery/7)** - extends the `Query` class for `UPDATE` queries
+* **[DeleteQuery](https://api.drupal.org/api/drupal/includes%21database%21query.inc/class/DeleteQuery/7)** - extends the `Query` class for `DELETE` queries
+* **[MergeQuery](https://api.drupal.org/api/drupal/includes%21database%21query.inc/class/MergeQuery/7)** - extends the `Query` class for `MERGE` queries
+* **[TruncateQuery](https://api.drupal.org/api/drupal/includes%21database%21query.inc/class/TruncateQuery/7)** - extends the `Query` class for `TRUNCATE` queries
+* **[SelectQuery](https://api.drupal.org/api/drupal/includes%21database%21select.inc/class/SelectQuery/7)** - extends the `Query` class for `SELECT` queries. *Note that this one is special enough to exist in its own file (`includes/database/select.inc`) with its own `interface` to go along with it.*
+
+And to close the loop, since this is supposed to be a summary after all, here's the general process (at a VERY high level, even though it may not seem like it):
+1. A query function such as [db_select()](https://api.drupal.org/api/drupal/includes%21database%21database.inc/function/db_select/7) is called when a query is being requested.
+2. That function will call the [getConnection()](https://api.drupal.org/api/drupal/includes%21database%21database.inc/function/Database%3A%3AgetConnection/7) method of the Database class which will fetch the DB driver and connection info from `settings.php`.
+3. Once we have the connection info, we can instantiate the database driver class for our chosen database, such as [DatabaseConnection_mysql](https://api.drupal.org/api/drupal/includes%21database%21mysql%21database.inc/class/DatabaseConnection_mysql/7), and hand it our connection info.
+4. The driver class constructor function will call the class's parent constructor (i.e., `DatabaseConnection`'s constructor) which calls its own parent's constructor (i.e., `PDO`'s constructor), which creates and returns the connection.
+5. Back in the `db_select()` function with a connection in hand, we can use function chaining to instantiate the `SelectQuery` class on top of it and build the query object.
+6. Any other functions chained after our original `db_select()`, such as `condition()` or `range()` or `orderBy()`, will be functions inside our query class (i.e., `SelectQuery`) and will alter the instantiated query object's attributes.
+7. The [execute()](https://api.drupal.org/api/drupal/includes%21database%21select.inc/function/SelectQuery%3A%3Aexecute/7) method of the `SelectQuery` class runs, which converts our query object to a SQL string, and runs it through [query()](https://api.drupal.org/api/drupal/includes%21database%21database.inc/function/DatabaseConnection%3A%3Aquery/7) method of the `DatabaseConnection` class
+8. That ends up running the [execute()](https://api.drupal.org/api/drupal/includes%21database%21database.inc/function/DatabaseStatementBase%3A%3Aexecute/7) method of the DatabaseStatementBase class
+9. Finally, *that* function runs the `execute()` method if its parent class, which is `PDOStatement`, which actually executes the query against the target database.
+10. Our query has run, and we can fetch results using one of many `fetch*()` functions provided by `PDOStatement` and `DatabaseStatementBase`.
+
+
+###### For more detailed information, read the [database chapter](http://www.drupaldeconstructed.com/content/04-database.html) in the book [Drupal 7 Deconstructed](https://www.gitbook.com/book/mcrittenden/drupal-7-deconstructed/details).
+
 
 ## On Use
  * set and configure **roles**: `People` --> `Permissions` --> `Roles`
@@ -111,3 +164,16 @@ In this demo, website folder is named `loc.jidps.com`.
         ```
 
     5. Then visit your website and click `Flush all cashes` from the top tool bar. You are now synced your website between two machines.
+
+
+#### 4.  How to configure AMPPS to to send out email from localhost?
+   * **4.1.**  Go to your [local mail settings in AMPPS](http://localhost/ampps-admin/index.php?act=email).
+
+   ![Email settings in AMPPS](img/AMPPS_Email_Configuration.PNG)
+
+   And, then configure as followings:
+    * `Mailing Method`: `SMTP`
+    * `SMTP Server` : `ssl://smtp.gmail.com`
+    * `SMTP Port` : `465`
+    * `SMTP Username` : Your Gmail Email Address
+    * `SMTP Password` : Password of your Gmail Account
