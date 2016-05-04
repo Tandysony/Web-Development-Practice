@@ -39,6 +39,8 @@ The most widely used web technologies/languages are HTML, CSS, JavaScript, PHP, 
 
 ### * JQuery
 
+##### 1. Try jQuery selector at [jQuery Selector Tester](http://www.w3schools.com/jquery/trysel.asp)
+##### 2. Try jQuery examples at [jQuery Examples](http://www.w3schools.com/jquery/jquery_examples.asp)
 
 # 3. Web development with Drupal (or WordPress)
 
