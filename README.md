@@ -4,7 +4,7 @@
 
 * Author: Suo Tan (tandysony AT gmail DOT com)
 * Created: Dec 18, 2015
-* Last updated: Jan 14, 2016
+* Last updated: May 1, 2016
 
 ---
 
@@ -22,22 +22,49 @@ The most widely used web technologies/languages are HTML, CSS, JavaScript, PHP, 
 
 # 2. Basic technologies/languages
 
-### * HTML
+Front-end technologies majorly include the golden trinity: `HTML` for **Content**, `CSS` for **Style**, and `JavaScript` for **Behavior**.
 
+### 2.1. HTML
+#### # Block-level elements V.S. Inline elements
 
-### * CSS
+##### * Block-level elements
+A **block-level element** always *starts on a new line* and takes up the full width available (stretches out to the left and right as far as it can). Examples of block-level elements:
 
- CSS (Cascading Style Sheets) is a style sheet language that describes the presentation of an HTML (or XML) document. CSS describes how elements must be rendered on screen, on paper, or in other media. The reason why we use CSS to separate the presentation layer of our page way from functional part that we may use JavaScript to add rich functionality to the page and markup as well.
+```HTML
+<div>
+<h1> - <h6>
+<p>
+<form>
+```
+
+###### * Inline elements
+An **inline element** *does not start on a new line* and only takes up as much width as necessary. Examples of inline elements:
+
+```HTML
+<span>
+<a>
+<img>
+```
+
+### 2.2. CSS
+
+`CSS` (Cascading Style Sheets) is a style sheet language that describes the presentation of an `HTML` (or `XML`) document. `CSS` describes how elements must be rendered on screen, on paper, or in other media. The reason why we use `CSS` to separate the presentation layer of our page way from functional part that we may use JavaScript to add rich functionality to the page and markup as well.
 
 * Use `#` to target a `ID` defined in HTML files; use `.` to target a `class` defined in HTML files; just use the element name, e.g., `body`, `h1`, for an `element` in HTML files.
 
-### * JavaScript
+### 2.3. JavaScript
+
+Primary tasks JavaScript does:
+  * Event Handling
+  * DOM (Document Object Model) Traversal
+  * DOM Manipulation
+  * Send/receive data without page refresh (AJAX)
+
+#### * JQuery
+
+### 2.4. PHP
 
 
-### * PHP
-
-
-### * JQuery
 
 ##### 1. Try jQuery selector at [jQuery Selector Tester](http://www.w3schools.com/jquery/trysel.asp)
 ##### 2. Try jQuery examples at [jQuery Examples](http://www.w3schools.com/jquery/jquery_examples.asp)
