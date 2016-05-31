@@ -1,0 +1,7 @@
+.circles{
+    stroke: blue;
+    stroke-width: 2;
+    fill-opacity: .5;
+    fill: white;
+    cursor: move;
+  }
