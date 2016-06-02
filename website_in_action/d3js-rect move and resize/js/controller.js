@@ -30,21 +30,22 @@ var resize = d3.behavior.drag()
     })
     .on("drag", dragResize);
 
-// Create the SVG box
+/*  --------------------------------------------
+*   Create the SVG box with boarder
+*/
 box = d3.select("#svgdock").append("div").append("svg")
     .attr("width", boxWidth)
     .attr("height", boxHeight)
     .attr("border", border);
 
-// Draw the board of the SVG box
 box.append("rect")
-        .attr("x", 0)
-        .attr("y", 0)
-        .attr("width", boxWidth)
-        .attr("height", boxHeight)
-        .style("stroke", bordercolor)
-        .style("fill", "none")
-        .style("stroke-width", border);
+    .attr("x", 0)
+    .attr("y", 0)
+    .attr("width", boxWidth)
+    .attr("height", boxHeight)
+    .style("stroke", bordercolor)
+    .style("fill", "none")
+    .style("stroke-width", border);
 
 
 charts = box.selectAll("g.chart")
@@ -61,7 +62,7 @@ box.append("rect").classed("box", true)
 var t = box.append("rect").classed("titleBox", true)
 t.call(drag);
 box.append("text").classed("title", true).data(groups)
-box.append("text").classed("legend", true).data(groups)
+//box.append("text").classed("legend", true).data(groups)
 box.append("rect").classed("icon", true)
 	.call(resize);
 
