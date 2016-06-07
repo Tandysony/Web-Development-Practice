@@ -1,15 +1,47 @@
 .icon{
     cursor: nw-resize;
 }
-.drag { cursor:move }
-rect.drop, rect.drop1{
+
+.circles{
+    fill-opacity: .5;
+    fill: #d94949;
+    cursor: move;
+  }
+
+.rects{
+  stroke: blue;
+  stroke-width: 2;
+  fill-opacity: .5;
+  fill: white;
+  cursor: move;
+}
+
+rect.drop{
     fill: lightgrey;
     /*fill-opacity: 0.2;*/
 }
 
-text.drop1{
-   pointer-events: none;
-}
+.coords {
+      width: 3em;
+      height:16px;
+      vertical-align:top;
+  }
+
+  #divRadio{
+      position: relative;;
+      background-color:White;
+  }
+
+
+  #container {
+      background-color: #FFFFFF;
+      margin: 0 auto !important;
+      min-height: 100%;
+      padding: 0;
+      width: 1001px !important;
+      overflow:auto;
+  }
+
 
 text.comp {
     text-anchor: end;
@@ -19,7 +51,6 @@ text.comp {
 
 .bar rect{
   fill: steelblue;
-
 }
 
 rect.bgd {
@@ -89,18 +120,6 @@ select {
 
 .x.axis path {
   display: none;
-}
-
-h1{
-    font-family:   sans-serif;
-    position:absolute;
-    left:100px;
-    top:0px;
-}
-
-.dummy{
-    height: 30px;
-    width: 100%;
 }
 
 #a {
