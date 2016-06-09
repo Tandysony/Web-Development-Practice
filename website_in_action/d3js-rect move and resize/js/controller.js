@@ -115,14 +115,10 @@ var dy = 194;
 function move(){
 	 var dragTarget = d3.select(this); // rect.icon
 	 var dragObject = d3.select(this.parentNode); //group
-        console.log("dragTarget:" + dragTarget);
-        console.log("dragObject:" + dragObject);
 
 	 xx += d3.event.x - parseInt(dragTarget.attr("x"));
 	 yy += d3.event.y - parseInt(dragTarget.attr("y"));
 
-     	 console.log("move: (xx:" + xx +" yy:" + yy + ")");
-     	 console.log("d3.event: (.x:" + d3.event.x+" .y:"+d3.event.y + ")");
 	 dragObject
 	 	.attr("transform", "translate(" + xx + "," + yy + ")")
 };
@@ -132,11 +128,9 @@ function dragResize(){
 	 var dragx = Math.max(dx + (iconsize/2), Math.min(w, dx + w + d3.event.dx));
 	 var dragy = Math.max(dy + (iconsize/2), Math.min(h, dy + h + d3.event.dy));
 
-	    console.log("d3.event.x:" + d3.event.dx +"; d3.event.y:" + d3.event.dy);
-
 	 var dragTarget = d3.select(this);  // the drag icon
 	 var dragObject = d3.select(this.parentNode); //
-        console.log("dragTarget: "+ this);
+
 	 var rectbox = dragObject.select("rect.box");
 
 	 var oldx = dx;

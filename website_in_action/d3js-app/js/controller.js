@@ -33,16 +33,16 @@ var dragable = false;
 // Create the SVG box with boarder
 var box = d3.select("#svgdock")
         .append("svg")
-        .attr("class", "box")
-        .attr("width", boxWidth)
-        .attr("height", boxHeight)
-        .attr("border",border)
-        .on("mousemove", function () {
-            var point = d3.mouse(this), p = {x: point[0], y: point[1] };
-            TextX.value = d3.format("f")(p.x); // format to integer
-            TextY.value = d3.format("f")(p.y);
-        })
-        .on("dblclick", dbClick);
+            .attr("class", "svgbox")
+            .attr("width", boxWidth)
+            .attr("height", boxHeight)
+            .attr("border",border)
+            .on("mousemove", function () {
+                var point = d3.mouse(this), p = {x: point[0], y: point[1] };
+                TextX.value = d3.format("f")(p.x); // format to integer
+                TextY.value = d3.format("f")(p.y);
+            })
+            .on("dblclick", dbClick);
 
 // Draw the border of the SVG box
 box.append("rect")
@@ -62,167 +62,143 @@ function dbClick(){
     // Extract the click location\
     var point = d3.mouse(this), p = {x: point[0], y: point[1] };
 
-    var r1 = document.getElementById("LineRadio");
-    var r2 = document.getElementById("CircleRadio");
-    var r3 = document.getElementById("ArcRadio");
-    var r4 = document.getElementById("RectRadio");
+    var rLine = document.getElementById("LineRadio");
+    var rCirlcle = document.getElementById("CircleRadio");
+    var rArc = document.getElementById("ArcRadio");
+    var rRect = document.getElementById("RectRadio");
 
 
-    if (r1.checked == true)
+    if (rLine.checked == true)
     {
         // to do
     }
-    else if (r2.checked == true)
+    else if (rCirlcle.checked == true)
     {
         // Append a circle
-        box.append("g")
-            .attr("class", "charts")
-            .attr("id", function() { return "element "+ elemtIndex; })
-            .append("circle")
-                .attr("transform", "translate(" + p.x + "," + p.y + ")")
-                .attr("r", r)
-                .attr("class", "circles")
-              //.on("contextmenu", munuHandler)
-                .call(drag2move);
+        group = box.append("g")
+            .attr("class", "elegroup")
+            .attr("id", function() { return "element "+ elemtIndex; });
 
-        box.append("rect")
-            //.attr("transform", "translate(" + p.x + "," + p.y + ")")
+        group.append("circle")
+            .attr("cx", p.x)
+            .attr("cy", p.y)
+            .attr("r", r)
+            .attr("class", "circles")
+            .on("mouseover", handleMouseOver)
+            .on("mouseout", handleMouseOut)
+            .call(drag2move);
+
+        group.append("rect")
             .attr("x", p.x + r - iconsize/2)
             .attr("y", p.y - iconsize/2)
             .attr("width", iconsize)
             .attr("height", iconsize)
             .attr("fill", "#999999")
             .attr("class", "icon")
+            //.attr("id", function() { return "icon-"+ elemtIndex; }) // Create an id for text so we can select it later for removing on mouseout
             .call(resize);
+
 
             elemtIndex++;
     }
-    else if (r3.checked == true)
+    else if (rArc.checked == true)
     {
         // to do
 
     }
-    else if (r4.checked == true)
+    else if (rRect.checked == true)
     {
         // Append a rect
-        box.append("g")
-            .attr("class", "charts")
-            .attr("id", function() { return "element "+ elemtIndex; })
-            .append("rect")
-                // .attr("transform", "translate(" + p.x + "," + p.y + ")")
-                .attr("x", p.x)
-                .attr("y", p.y)
-                .attr("width", w)
-                .attr("height", h)
-                .attr("class", "rects")
-                .call(drag2move)
-                //.on("mouseover", handleMouseOver)
-                .on("click", click)
-                .on("mouseout", function () {
+        group = box.append("g")
+            .attr("class", "elegroup")
+            .attr("id", function() { return "element-"+ elemtIndex; });
 
-                    // // Ignore the click event if it was suppressed
-                    // if (d3.event.defaultPrevented) return;
-                    // Use D3 to select element, change color
-                    d3.select(this).style("fill", "none");
-                    // Select icon by id and then remove
-                    d3.select("#icon" + "-" + elemtIndex).remove();  // Remove text location
-                });
+        group.append("rect")
+            .attr("x", p.x)
+            .attr("y", p.y)
+            .attr("width", w)
+            .attr("height", h)
+            .attr("class", "rects")
+            .call(drag2move)
+            .on("mouseover", handleMouseOver)
+            .on("mouseout", handleMouseOut);
+
+        group.append("rect")
+            .attr("x", p.x + w - iconsize/2)
+            .attr("y", p.y + h - iconsize/2)
+            .attr("width", iconsize)
+            .attr("height", iconsize)
+            .attr("fill", "#999999")
+            .attr("class", "icon")
+            //.attr("id", function() { return "icon-"+ elemtIndex; }) // Create an id for text so we can select it later for removing on mouseout
+            .call(resize);
 
 
-
-        // box.append("rect")
-        //     //.attr("transform", "translate(" + p.x + "," + p.y + ")")
-        //     .attr("x", p.x + w - iconsize)
-        //     .attr("y", p.y + h - iconsize)
-        //     .attr("width", iconsize)
-        //     .attr("height", iconsize)
-        //     .attr("fill", "#999999")
-        //     .attr("class", "icon")
-        //     .call(resize);
         elemtIndex++;
     }
 
 }
 
 
-// // Create Event Handlers for mouse
-// function handleMouseOver(i) {  // Add interactivity
-//
-//     // Ignore the click event if it was suppressed
-//     if (d3.event.defaultPrevented) return;
-//
-//     var object = d3.select(this);
-//     // Use D3 to select element, change color
-//     d3.select(this).style("fill", "orange");
-//
-//     console.log("rect (x:" + object.attr("x") + ", y:" + object.attr("y") + ")");
-//
-//     box.append("rect")
-//        //.attr("transform", "translate(" + p.x + "," + p.y + ")")
-//        .attr("x", object.attr("x") + w - iconsize)
-//        .attr("y", object.attr("y") + h - iconsize)
-//        .attr("width", iconsize)
-//        .attr("height", iconsize)
-//        .attr("fill", "#999999")
-//        .attr("class", "icon")
-//         .attr("id", "icon" + "-" + i) // Create an id for text so we can select it later for removing on mouseout
-//        .call(resize);
-// }
-//
-function click() {
-    // Ignore the click event if it was suppressed
-    if (d3.event.defaultPrevented) return;
+// Create Event Handlers for mouseover
+function handleMouseOver() {
 
-    // var object = d3.select(this);
+    var object = d3.select(this);
     // Use D3 to select element, change color
-    d3.select(this).style("fill", "orange");
-
-    //console.log("rect (x:" + object.attr("x") + ", y:" + object.attr("y") + ")");
-
-    box.append("circle")
-       //.attr("transform", "translate(" + p.x + "," + p.y + ")")
-       .attr("cx", p.x + w)
-       .attr("cy", p.y + h - iconsize)
-       .attr("r", iconsize)
-       .attr("fill", "#999999")
-       .attr("class", "icon")
-        .attr("id", "icon" + "-" + elemtIndex) // Create an id for text so we can select it later for removing on mouseout
-       .call(resize);
+    d3.select(this).style("fill", "gray");
 }
 
+
+// Create Event Handlers for mouseout
+function handleMouseOut() {
+    // Use D3 to select element, change color
+    d3.select(this).style("fill", "none");
+}
 
 
 // Define drag2move beavior
 var drag2move = d3.behavior.drag()
+    .origin(function() {
+        var current = d3.select(this);
+        return {x: current.attr("x"), y: current.attr("y") };
+    })
     .on("drag", move);
 
 function move(d) {
     var dragTarget = d3.select(this);
     var dragObject = d3.select(this.parentNode); //group
-        console.log("dragTarget:" + dragTarget);
+        // console.log("dragTarget:" + dragTarget);
+        // console.log("dragObject:" + dragObject);
+        // console.log("The shape class is: " + dragTarget.attr("class"));
 
-    var xx = d3.select(this).attr("cx");
-    var yy = d3.select(this).attr("cy");
+        if (dragTarget.attr("class") == "circles")
+        {
+            xx += d3.event.x;
+            yy += d3.event.y;
 
-    //else if(this == SVGCircleElement)
-    //{
-        var x = d3.event.x;
-        var y = d3.event.y;
+            console.log("you are moving CIRCLE");
+        }
+        else if (dragTarget.attr("class") == "rects")
+        {
+            xx += d3.event.x - dragTarget.attr("x");
+            yy += d3.event.y - dragTarget.attr("y");
 
-        console.log("shape at: (xx:" + xx +" yy:" + yy + ")");
-        console.log("mouse at: (.x:" + x+" .y:"+ y + ")");
+            console.log("you are moving RECT");
+        }
 
-        d3.select(this).attr("transform", "translate(" + x + "," + y + ")");
-    //}
+        // console.log("shape at: (xx:" + xx +" yy:" + yy + ")");
+        // console.log("mouse at: (.x:" + d3.event.x+" .y:"+ d3.event.y + ")");
+
+    dragObject.attr("transform", "translate(" + xx + "," + yy + ")");
 
 }
 
 
 var resize = d3.behavior.drag()
-    .origin(function() {
-        var current = d3.select(this);
-        return {x: current.attr("x"), y: current.attr("y") };
-    })
+    // .origin(function() {
+    //     var current = d3.select(this);
+    //     return {x: current.attr("x"), y: current.attr("y") };
+    // })
     .on("drag", dragResize);
 
 
@@ -232,38 +208,66 @@ var resize = d3.behavior.drag()
 //     .append("g").classed("chart", true)
 //     .attr("id", function(d,i) { return "box"+i})
 
-var dx = 429;
-var dy = 184;
+
 
 // implenent resize event handler
 function dragResize(){
-	 var dragx = Math.max(dx + (iconsize/2), Math.min(w, dx + w + d3.event.dx));
-	 var dragy = Math.max(dy + (iconsize/2), Math.min(h, dy + h + d3.event.dy));
+
+    var dragTarget = d3.select(this);
+    var dragObject = d3.select(this.parentNode); // "g"
+    var o = dragObject.select("rect.rects");
+
+    var myTrans = dragObject.attr("transform");
+    var tansValue = d3.transform(myTrans).translate;  //returns [x, y]
+
+    console.log("------- NEW STEP --------");
+    console.log(tansValue);
+
+    // absIconPx = dragTarget.attr("x") + iconsize/2
+    // absIconPx = dragTarget.attr("x") + iconsize/2
+
+    var dx = d3.event.x - dragTarget.attr("x");
+    var dy = d3.event.y - dragTarget.attr("y");
+    //     
+    // var dx = d3.event.x - tansValue[0] - dragTarget.attr("x");
+    // var dy = d3.event.y - tansValue[1] - dragTarget.attr("y");
+
+    // // for debug purpose
+    console.log("diff (dx:"+ dx +"; dy:"+ dy  + ")");
+    console.log("d3.event (x:" + d3.event.x + "; y:"+ d3.event.y  + ")");
+
+    // console.log("dragTarget:" + dragTarget);
+    // console.log("dragObject:" + dragObject);
+    // console.log("The shape class is: " + dragTarget.attr("class"));
+
+    // console.log("dragx:" + dragx +"; dragy:" + dragy);
+    // console.log("dx,dy (dx:"+ dx +"; dy:"+ dy  + ")");
+    // console.log("d3.event (dx:"+ d3.event.dx +"; dy:"+ d3.event.dy  + ")");
+    // console.log("d3.event (x:" + d3.event.x + "; y:"+ d3.event.y  + ")");
+    // console.log(dragObject.attr("class")); // will print elegroup
+    // console.log(o.attr("class")); // will print rects
+    // console.log(dragTarget.attr("class")); // will print icon
+    // console.log("dragTarget (x:" + dragTarget.attr("x") + ", y:" + + dragTarget.attr("y") + ")");
+
+    // var oldx = dx;
+    // var oldy = dy;
+    //
+    // dx = Math.max(0, Math.min(dx + w - (iconsize / 2), d3.event.x));
+    // dy = Math.max(0, Math.min(dy + h - (iconsize / 2 ), d3.event.y));
+    w += dx;
+    h += dy;
+
+    console.log(" NEW dx,dy (dx:"+ dx +"; dy:"+ dy  + ")");
+    console.log(" NEW w,h (w:"+ w +"; h:"+ h  + ")");
+
+    dragTarget
+        .attr("x", function() { return dragTarget.attr("x") + dx; })
+        .attr("y", function() { return dragTarget.attr("y") + dy; })
 
 
-	 var dragTarget = d3.select(this);
-	 var dragObject = d3.select(this.parentNode);
+    console.log(" ICON new position (x:"+ dragTarget.attr("x") +"; y:"+ dragTarget.attr("y") + ")");
 
-     console.log("d3.event.x:"+d3.event.dx+" d3.event.y:"+d3.event.dy);
-      //console.log(dragObject.attr("class")); // will print box
-      console.log("dragTarget (x:" + dragTarget.attr("x") + ", y:" + + dragTarget.attr("y") + ")");
-       console.log(dragObject.attr("class"));
-
-	 var o = dragObject.select("rect.box");
-
-	 var oldx = dx;
-	 var oldy = dy;
-
-	  dx = Math.max(0, Math.min(dx + w - (iconsize / 2), d3.event.x));
-	  dy = Math.max(0, Math.min(dy + h - (iconsize / 2 ), d3.event.y));
-	  w = w - (oldx - dx);
-	  h = h - (oldy - dy);
-
-	  dragTarget
-		.attr("x", function(d) { return dragx - (iconsize/2) })
-		.attr("y", function(d) { return dragy - (iconsize/2) })
-
-	  o.attr("width", w)
-	   .attr("height", h);
+    o.attr("width", w)
+        .attr("height", h);
 
 };
