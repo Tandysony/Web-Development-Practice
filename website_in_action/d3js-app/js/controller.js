@@ -12,7 +12,7 @@ var bordercolor = 'black';
 var w = 100;
 var h= 60;
 var r = 30;
-var iconsize = 10;
+var iconsize = 16;
 var elemtIndex = 0;
 var xx = 0;
 var yy = 0;
@@ -42,7 +42,7 @@ var box = d3.select("#svgdock")
             TextX.value = d3.format("f")(p.x); // format to integer
             TextY.value = d3.format("f")(p.y);
         })
-        .on("click", click);
+        .on("dblclick", dbClick);
 
 // Draw the border of the SVG box
 box.append("rect")
@@ -55,7 +55,7 @@ box.append("rect")
         .style("stroke-width", border);
 
 
-function click(){
+function dbClick(){
     // Ignore the click event if it was suppressed
     if (d3.event.defaultPrevented) return;
 
@@ -117,26 +117,7 @@ function click(){
                 .attr("class", "rects")
                 .call(drag2move)
                 //.on("mouseover", handleMouseOver)
-                .on("mouseover", function () {
-                    // Ignore the click event if it was suppressed
-                    if (d3.event.defaultPrevented) return;
-
-                    // var object = d3.select(this);
-                    // Use D3 to select element, change color
-                    d3.select(this).style("fill", "orange");
-
-                    //console.log("rect (x:" + object.attr("x") + ", y:" + object.attr("y") + ")");
-
-                    box.append("circle")
-                       //.attr("transform", "translate(" + p.x + "," + p.y + ")")
-                       .attr("cx", p.x + w)
-                       .attr("cy", p.y + h)
-                       .attr("r", iconsize)
-                       .attr("fill", "none")
-                       .attr("class", "icon")
-                        .attr("id", "icon" + "-" + elemtIndex) // Create an id for text so we can select it later for removing on mouseout
-                       .call(resize);
-                })
+                .on("click", click)
                 .on("mouseout", function () {
 
                     // // Ignore the click event if it was suppressed
@@ -188,15 +169,26 @@ function click(){
 //        .call(resize);
 // }
 //
-// function handleMouseOut(d, i) {
-//
-//     // Use D3 to select element, change color
-//     d3.select(this).style("fill", "none");
-//
-//     // Select icon by id and then remove
-//     d3.select("#icon" + "-" + i).remove();  // Remove text location
-// }
-//
+function click() {
+    // Ignore the click event if it was suppressed
+    if (d3.event.defaultPrevented) return;
+
+    // var object = d3.select(this);
+    // Use D3 to select element, change color
+    d3.select(this).style("fill", "orange");
+
+    //console.log("rect (x:" + object.attr("x") + ", y:" + object.attr("y") + ")");
+
+    box.append("circle")
+       //.attr("transform", "translate(" + p.x + "," + p.y + ")")
+       .attr("cx", p.x + w)
+       .attr("cy", p.y + h - iconsize)
+       .attr("r", iconsize)
+       .attr("fill", "#999999")
+       .attr("class", "icon")
+        .attr("id", "icon" + "-" + elemtIndex) // Create an id for text so we can select it later for removing on mouseout
+       .call(resize);
+}
 
 
 
