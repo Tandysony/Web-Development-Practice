@@ -1,11 +1,24 @@
-.circles, .rects{
+.circles{
     stroke: blue;
-    stroke-width: 2;
+    stroke-width: 1;
     fill-opacity: .5;
-    fill: white;
+    fill: green;
     cursor: move;
   }
 
+  .lines{
+      stroke: blue;
+      stroke-width: 2;
+      cursor: move;
+    }
+
+.rects{
+      stroke: blue;
+      stroke-width: 2;
+      fill-opacity: .5;
+      fill: white;
+      cursor: move;
+    }
   .coords {
       width: 3em;
       height:16px;
@@ -32,4 +45,11 @@
       stroke: gray;
       stroke-width: 1;
       fill-opacity: .5;
+  }
+
+  .axis line {
+    fill: none;
+    stroke: #ddd;
+    shape-rendering: crispEdges;
+    vector-effect: non-scaling-stroke;
   }

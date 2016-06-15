@@ -121,31 +121,42 @@ function move(){
 
 	 dragObject
 	 	.attr("transform", "translate(" + xx + "," + yy + ")")
+    console.log(" *** Item moved! ***");
 };
 
 // implenent resize event handler
 function dragResize(){
-	 var dragx = Math.max(dx + (iconsize/2), Math.min(w, dx + w + d3.event.dx));
-	 var dragy = Math.max(dy + (iconsize/2), Math.min(h, dy + h + d3.event.dy));
+    var dragx = Math.max(dx + (iconsize/2), Math.min(w, dx + w + d3.event.dx));
+    var dragy = Math.max(dy + (iconsize/2), Math.min(h, dy + h + d3.event.dy));
 
-	 var dragTarget = d3.select(this);  // the drag icon
-	 var dragObject = d3.select(this.parentNode); //
+    var dragTarget = d3.select(this);  // the drag icon
+    var dragObject = d3.select(this.parentNode); //
 
-	 var rectbox = dragObject.select("rect.box");
+    var rectbox = dragObject.select("rect.box");
 
-	 var oldx = dx;
-	 var oldy = dy;
+    var oldx = dx;
+    var oldy = dy;
 
-	  dx = Math.max(0, Math.min(dx + w - (iconsize / 2), d3.event.x));
-	  dy = Math.max(0, Math.min(dy + h - (iconsize / 2), d3.event.y));
-	  w = w - (oldx - dx);
-	  h = h - (oldy - dy);
+    console.log("------- NEW STEP --------");
 
-	  dragTarget
-		.attr("x", function(d) { return dragx - (iconsize/2) })
-		.attr("y", function(d) { return dragy - (iconsize/2) })
+    console.log("original dx, dy - (dx:"+ dx +"; dy:"+ dy + ")");
+    console.log("dragx, dragy - (dragx:" + dragx +"; dragy:" + dragy + ")");
+    console.log("d3.event (dx:"+ d3.event.dx +"; dy:"+ d3.event.dy + ")");
+    console.log("d3.event (x:" + d3.event.x + "; y:"+ d3.event.y + ")");
 
-	  rectbox.attr("width", w)
-	   .attr("height", h);
+    dx = Math.max(0, Math.min(dx + w - (iconsize / 2), d3.event.x));
+    dy = Math.max(0, Math.min(dy + h - (iconsize / 2), d3.event.y));
+    w = w - (oldx - dx);
+    h = h - (oldy - dy);
+
+    console.log("UPDATED dx', dy' - (dx':"+ dx +"; dy':"+ dy + ")");
+    console.log("UPDATED w, h - (w':"+ w +"; h':"+ h + ")");
+
+    dragTarget
+    .attr("x", function(d) { return dragx - (iconsize/2) })
+    .attr("y", function(d) { return dragy - (iconsize/2) })
+
+    rectbox.attr("width", w)
+    .attr("height", h);
 
 };
