@@ -41,7 +41,7 @@
   }
 
   .icon{
-      cursor: nw-resize;
+      cursor: se-resize;
       stroke: gray;
       stroke-width: 1;
       fill-opacity: .5;
