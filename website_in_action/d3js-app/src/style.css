@@ -1,0 +1,55 @@
+.circles{
+    stroke: blue;
+    stroke-width: 1;
+    fill-opacity: .5;
+    fill: green;
+    cursor: move;
+  }
+
+  .lines{
+      stroke: blue;
+      stroke-width: 2;
+      cursor: move;
+    }
+
+.rects{
+      stroke: blue;
+      stroke-width: 2;
+      fill-opacity: .5;
+      fill: white;
+      cursor: move;
+    }
+  .coords {
+      width: 3em;
+      height:16px;
+      vertical-align:top;
+  }
+
+  #divRadio{
+      position: relative;;
+      background-color:White;
+  }
+
+
+  #container {
+      background-color: #FFFFFF;
+      margin: 0 auto !important;
+      min-height: 100%;
+      padding: 0;
+      width: 1001px !important;
+      overflow:auto;
+  }
+
+  .icon{
+      cursor: se-resize;
+      stroke: gray;
+      stroke-width: 1;
+      fill-opacity: .5;
+  }
+
+  .axis line {
+    fill: none;
+    stroke: #ddd;
+    shape-rendering: crispEdges;
+    vector-effect: non-scaling-stroke;
+  }

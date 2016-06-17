@@ -1,0 +1,128 @@
+.icon{
+    cursor: nw-resize;
+}
+
+.circles{
+    fill-opacity: .5;
+    fill: #d94949;
+    cursor: move;
+  }
+
+.rects{
+  stroke: blue;
+  stroke-width: 2;
+  fill-opacity: .5;
+  fill: white;
+  cursor: move;
+}
+
+rect.drop{
+    fill: lightgrey;
+    /*fill-opacity: 0.2;*/
+}
+
+.coords {
+      width: 3em;
+      height:16px;
+      vertical-align:top;
+  }
+
+  #divRadio{
+      position: relative;;
+      background-color:White;
+  }
+
+
+  #container {
+      background-color: #FFFFFF;
+      margin: 0 auto !important;
+      min-height: 100%;
+      padding: 0;
+      width: 1001px !important;
+      overflow:auto;
+  }
+
+
+text.comp {
+    text-anchor: end;
+}
+
+.hidden {visibility:hidden;}
+
+.bar rect{
+  fill: steelblue;
+}
+
+rect.bgd {
+    fill: #ececec;
+    stroke: black;
+    stroke-width: 0.1;
+}
+
+rect.box {
+    fill: white;
+    stroke: black;
+    stroke-width: "0.5";
+	overflow:auto;
+	resize:both;
+}
+
+text{
+    font: 12px sans-serif;
+}
+
+text.title {
+    font-weight: bold;
+    font-size: 14pt;
+}
+
+.bar text{
+  /*text-anchor: end;*/
+  pointer-events: none;
+}
+
+text.value{
+    text-anchor: start;
+   /* stroke: "black";
+    stroke-width: "0.5";*/
+  width: 167;
+  fill: #000000;
+  pointer-events: none;
+}
+
+text.unselected {
+    /*fill-opacity: 0.2;*/
+    fill: #b9acac;
+    text-anchor: start;
+   /* stroke: "black";
+    stroke-width: "0.5";*/
+    width: 167;
+
+    pointer-events: none;
+}
+
+rect.unselected {
+    fill-opacity: 0.1;
+}
+
+select {
+    position: absolute;
+    x: 200px;
+    top: 30px;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+#a {
+    x: 200;
+    y: 30px;
+}
