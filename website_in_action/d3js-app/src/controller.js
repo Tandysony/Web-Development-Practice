@@ -1,6 +1,5 @@
 /*
  * Suo Tan
- * Ruiyi Tech.
  * June, 2016
 */
 
@@ -17,7 +16,6 @@ var iconsize = 16;
 var elemtIndex = 0;
 var xx = 0;
 var yy = 0;
-
 
 
 /* -------------------------------------------
@@ -98,7 +96,6 @@ function dbClick(){
     {
         // Append a line
         group = box.append("g")
-            .attr("class", "elegroup")
             .attr("class", "lineGroup")
             .attr("id", function() { return elemtIndex; });
 
@@ -108,8 +105,15 @@ function dbClick(){
             .attr("x2", p.x + 100)
             .attr("y2", p.y)
             .attr("class", "lines")
-            //.on("mouseover", handleMouseOver)
-            //.on("mouseout", handleMouseOut)
+            .on("mousedown", function(){
+                    // the svg box click listener will not fire
+                    d3.event.stopPropagation()
+
+                    dx = parseFloat(d3.select(this).attr("x2")) -parseFloat(d3.select(this).attr("x1"))
+                    dy = parseFloat(d3.select(this).attr("y2")) -parseFloat(d3.select(this).attr("y1"))
+                    // update the objInor field
+                    objInfo.value = " Line: length - " + Math.sqrt(dx*dx + dy*dy) + "px";
+                  })
             .on("contextmenu", d3.contextMenu(menu))
             .on("click", function(){
                     // the svg box click listener will not fire
@@ -128,7 +132,6 @@ function dbClick(){
             .attr("height", iconsize)
             .attr("fill", "#999999")
             .attr("class", "icon")
-            //.attr("id", function() { return "icon-"+ elemtIndex; }) // Create an id for text so we can select it later for removing on mouseout
             .call(resize);
 
         console.log("A line is added!");
@@ -137,7 +140,6 @@ function dbClick(){
     {
         // Append a circle
         group = box.append("g")
-            .attr("class", "elegroup")
             .attr("class", "circleGroup")
             .attr("id", function() { return elemtIndex; });
 
@@ -146,10 +148,20 @@ function dbClick(){
             .attr("cy", p.y)
             .attr("r", r)
             .attr("class", "circles")
-            //.on("mouseover", handleMouseOver)
+            .on("mousedown", function(){
+                    // the svg box click listener will not fire
+                    d3.event.stopPropagation();
+                    // update the objInor field
+                    objInfo.value = " Circle:  radius - " + d3.select(this).attr("r") + "px";
+                  })
             //.on("mouseout", handleMouseOut)
             .on("contextmenu", d3.contextMenu(menu))
-            .on("click", click)
+            .on("click", function(){
+                    // the svg box click listener will not fire
+                    d3.event.stopPropagation();
+
+                    d3.selectAll(".icon").attr("visibility", "hidden");
+                  })
             .call(drag2move);
 
         // group.append("rect")
@@ -179,7 +191,6 @@ function dbClick(){
     {
         // Append a rect
         group = box.append("g")
-            .attr("class", "elegroup")
             .attr("class", "rectGroup")
             .attr("id", function() { return elemtIndex; });
 
@@ -189,8 +200,12 @@ function dbClick(){
             .attr("width", w)
             .attr("height", h)
             .attr("class", "rects")
-            // .on("mouseover", handleMouseOver)
-            // .on("mouseout", handleMouseOut)
+            .on("mousedown", function(){
+                    // the svg box click listener will not fire
+                    d3.event.stopPropagation();
+                    // update the objInor field
+                    objInfo.value = " Rect:  width - " + d3.select(this).attr("width") + "px; height - " + d3.select(this).attr("height") + "px";
+                  })
             .on("contextmenu", d3.contextMenu(menu))
             .on("click", function(){
                     // the svg box click listener will not fire
@@ -199,6 +214,7 @@ function dbClick(){
                     d3.selectAll(".icon").attr("visibility", "hidden");
                     d3.select(this.parentNode).select("rect.icon")
                         .attr("visibility", "visible");
+
                   })
             .call(drag2move);
 
@@ -209,28 +225,11 @@ function dbClick(){
             .attr("height", iconsize)
             .attr("fill", "#999999")
             .attr("class", "icon")
-            //.attr("id", function() { return "icon-"+ elemtIndex; }) // Create an id for text so we can select it later for removing on mouseout
             .call(resize);
     }
 
     elemtIndex++;
 }
-
-
-//
-// // Implement the event handler for 'mouseover'
-// function handleMouseOver() {
-//
-//     var object = d3.select(this);
-//     // Use D3 to select element, change color
-//     d3.select(this).style("fill", "gray");
-// }
-//
-// // Implement the event handler for 'mouseout'
-// function handleMouseOut() {
-//     // Use D3 to select element, change color
-//     d3.select(this).style("fill", "none");
-// }
 
 
 /* -------------------------------------------
@@ -255,24 +254,24 @@ function move() {
 
     if (dragTarget.attr("class") == "lines")
     {
-        xx += d3.event.x - dragTarget.attr("x");
-        yy += d3.event.y - dragTarget.attr("y");
+        xx += d3.event.x;
+        yy += d3.event.y;
 
-        console.log("you are moving a LINE");
+        //console.log("you are moving a LINE");
     }
     else if (dragTarget.attr("class") == "circles")
     {
         xx += d3.event.x;
         yy += d3.event.y;
 
-        console.log("you are moving a CIRCLE");
+        //console.log("you are moving a CIRCLE");
     }
     else if (dragTarget.attr("class") == "rects")
     {
         xx += d3.event.x - dragTarget.attr("x");
         yy += d3.event.y - dragTarget.attr("y");
 
-        console.log("you are moving a RECT");
+        //console.log("you are moving a RECT");
     }
 
     // console.log("shape at: (xx:" + xx +" yy:" + yy + ")");
@@ -300,8 +299,8 @@ function dragResize(){
 
     if (dragObject.attr("class") == "lineGroup")  // resizing a LINE
     {
-        console.log("------- Dragging a LINE --------");
-        console.log("  The element group #: " + dragObject.attr("id"));
+        //console.log("------- Dragging a LINE --------");
+        //console.log("  The element group #: " + dragObject.attr("id"));
 
         var obj2Resize = dragObject.select("line.lines");
 
@@ -318,7 +317,7 @@ function dragResize(){
 
         var oldx = deltaX;
         var oldy = deltaY;
-        //
+
         // console.log("  OLD oldx,oldy (dx:"+ oldx +"; dy:"+ oldy + ")");
         // console.log("  OLD w,h (dw:"+ dw +"; dh:"+ dh  + ")");
 
@@ -329,30 +328,26 @@ function dragResize(){
 
         var dragx = Math.max(deltaX + (iconsize/2), Math.min(dw, deltaX + dw + d3.event.dx));
         var dragy = Math.max(deltaY + (iconsize/2), Math.min(dh, deltaY + dh + d3.event.dy));
-        //
-        // console.log("  NEW deltaX,deltaY (deltaX:"+ deltaX +"; deltaY:"+ deltaY  + ")");
-        // console.log("  NEW dw,dh (dw:"+ dw +"; dh:"+ dh  + ")");
-        // console.log("  dragx, dragy - (dragx:" + dragx +"; dragy:" + dragy + ")");
+
 
         dragTarget.attr("x", function(d) { return dragx - (iconsize/2) })
             .attr("y", function(d) { return dragy - (iconsize/2) })
 
-        console.log("  ICON new position (x:"+ dragTarget.attr("x") +"; y:"+ dragTarget.attr("y") + ")");
+        //console.log("  ICON new position (x:"+ dragTarget.attr("x") +"; y:"+ dragTarget.attr("y") + ")");
 
 
         obj2Resize.attr("x2", dragx)
             .attr("y2", dragy);
+
+        // update the objInor field
+        objInfo.value = " Line: length - " + Math.sqrt(dw*dw + dh*dh) + "px";
     }
     else if (dragObject.attr("class") == "rectGroup") // resizing a RECT
     {
-
-        console.log("------- Resizing a RECT --------");
+        //console.log("------- Resizing a RECT --------");
+        //console.log(" The element group #: " + dragObject.attr("id"));
 
         var obj2Resize = dragObject.select("rect.rects");
-        console.log(" The element group #: " + dragObject.attr("id"));
-        //
-        // var myTrans = dragObject.attr("transform");
-        // var tansValue = d3.transform(myTrans).translate;  //returns [x, y]
 
         var dw = parseFloat(obj2Resize.attr("width"));
         var dh = parseFloat(obj2Resize.attr("height"));
@@ -360,33 +355,29 @@ function dragResize(){
         var objX = parseFloat(obj2Resize.attr("x"));
         var objY = parseFloat(obj2Resize.attr("y"));
 
-
         var deltaX = objX + dw - iconsize/2;
         var deltaY = objY + dh - iconsize/2;
 
         var oldx = deltaX;
         var oldy = deltaY;
 
+        // console.log("  OLD oldx,oldy (dx:"+ oldx +"; dy:"+ oldy + ")");
+        // console.log("  OLD w,h (dw:"+ dw +"; dh:"+ dh  + ")");
+
         deltaX = Math.max(0, Math.min(deltaX + dw - (iconsize / 2), d3.event.x));
         deltaY= Math.max(0, Math.min(deltaY + dh - (iconsize / 2), d3.event.y));
-        dw = dw - (oldx - deltaX);
-        dh = dh - (oldy - deltaY);
+        dw = Math.max(20, dw - (oldx - deltaX));
+        dh = Math.max(20, dh - (oldy - deltaY));
 
-        var dragx = Math.max(deltaX + (iconsize/2), Math.min(dw, deltaX + dw + d3.event.dx));
-        var dragy = Math.max(deltaY + (iconsize/2), Math.min(dh, deltaY + dh + d3.event.dy));
+        dragTarget.attr("x", function(d) { return objX + dw - iconsize/2 })
+            .attr("y", function(d) { return objY + dh - iconsize/2 })
 
-        console.log("  NEW deltaX,deltaY (deltaX:"+ deltaX +"; deltaY:"+ deltaY  + ")");
-        console.log("  NEW dw,dh (dw:"+ dw +"; dh:"+ dh  + ")");
-        console.log("  dragx, dragy - (dragx:" + dragx +"; dragy:" + dragy + ")");
-
-        dragTarget.attr("x", function(d) { return dragx - (iconsize/2) })
-            .attr("y", function(d) { return dragy - (iconsize/2) })
-
-        console.log(" ICON new position (x:"+ dragTarget.attr("x") +"; y:"+ dragTarget.attr("y") + ")");
+        //console.log("  ICON new position (x:"+ dragTarget.attr("x") +"; y:"+ dragTarget.attr("y") + ")");
 
         obj2Resize.attr("width", dw)
             .attr("height", dh);
+
+        // update the objInor field
+        objInfo.value = " Rect:  width - " + dw + "px; height - " + dh + "px";
     }
-
-
 }

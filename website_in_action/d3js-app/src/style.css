@@ -1,4 +1,9 @@
-.circles{
+/*
+ * Suo Tan
+ * June, 2016
+*/
+
+  .circles{
     stroke: blue;
     stroke-width: 1;
     fill-opacity: .5;
@@ -12,13 +17,20 @@
       cursor: move;
     }
 
-.rects{
+  .rects{
       stroke: blue;
       stroke-width: 2;
       fill-opacity: .5;
       fill: white;
       cursor: move;
     }
+
+  .objInfo{
+        width: 30em;
+        height:16px;
+        vertical-align:top;
+    }
+
   .coords {
       width: 3em;
       height:16px;
