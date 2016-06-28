@@ -62,12 +62,10 @@ Primary tasks JavaScript does:
 
 #### * JQuery
 
-### 2.4. PHP
-
-
-
 ##### 1. Try jQuery selector at [jQuery Selector Tester](http://www.w3schools.com/jquery/trysel.asp)
 ##### 2. Try jQuery examples at [jQuery Examples](http://www.w3schools.com/jquery/jquery_examples.asp)
+
+### 2.4. PHP
 
 # 3. Web development with Drupal (or WordPress)
 
