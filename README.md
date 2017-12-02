@@ -65,8 +65,6 @@ Primary tasks JavaScript does:
 ##### 1. Try jQuery selector at [jQuery Selector Tester](http://www.w3schools.com/jquery/trysel.asp)
 ##### 2. Try jQuery examples at [jQuery Examples](http://www.w3schools.com/jquery/jquery_examples.asp)
 
-### 2.4. PHP
-
 # 3. Web development with Drupal (or WordPress)
 
 * [Install Drupal on a AMPPS](https://github.com/Tandysony/Web-Development-Practice/blob/master/Drupal_dev_docs/Install%20Drupal%20on%20AMPPS.md)
